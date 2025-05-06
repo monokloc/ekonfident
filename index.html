@@ -8,14 +8,13 @@
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-
-  <!-- WŁAŚCIWA STRONA (ukryta na start) -->
-  <div class="container" style="display: none;">
+  <div class="container">
     <h1>Generator Karty Konfidenta 👮‍♂️</h1>
 
     <input type="text" id="imie" placeholder="Imię i nazwisko" />
     <input type="text" id="ksywka" placeholder="Nick" />
 
+    <!-- Kontener dla przycisku wyboru zdjęcia -->
     <div id="fileInputContainer">
       <input type="file" id="zdjecie" accept="image/*" />
       <label id="fileInputLabel" for="zdjecie">Wybierz zdjęcie</label>
@@ -23,9 +22,11 @@
 
     <button onclick="generujKarte()">Generuj</button>
     <canvas id="canvas"></canvas>
+
+    <!-- Przycisk pobierania -->
     <button id="downloadButton" style="display:none" onclick="downloadImage()">Pobierz Kartę</button>
   </div>
-
+  
   <script src="js/app.js"></script>
 </body>
 </html>
