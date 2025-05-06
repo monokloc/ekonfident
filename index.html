@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Karta Konfidenta</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Generator Karty Konfidenta 👮‍♂️</h1>
+
+    <input type="text" id="imie" placeholder="Imię i nazwisko" />
+    <input type="text" id="ksywka" placeholder="Nick" />
+
+    <!-- Kontener dla przycisku wyboru zdjęcia -->
+    <div id="fileInputContainer">
+      <input type="file" id="zdjecie" accept="image/*" />
+      <label id="fileInputLabel" for="zdjecie">Wybierz zdjęcie</label>
+    </div>
+
+    <button onclick="generujKarte()">Generuj</button>
+    <canvas id="canvas"></canvas>
+
+    <!-- Przycisk pobierania -->
+    <button id="downloadButton" style="display:none" onclick="downloadImage()">Pobierz Kartę</button>
+  </div>
+  
+  <script src="js/app.js"></script>
+</body>
+</html>
