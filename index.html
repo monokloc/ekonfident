@@ -4,10 +4,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>thebiggestszajzer</title>
+    <title>Karta Konfidenta</title>
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+
+  <!-- 🎥 Animowane tło wideo -->
+  <video autoplay muted loop id="backgroundVideo">
+    <source src="video.mp4" type="video/mp4" />
+    Twoja przeglądarka nie obsługuje wideo.
+  </video>
+
   <div class="container">
     <h1>Generator Karty Konfidenta 👮‍♂️</h1>
 
@@ -21,7 +28,9 @@
     </div>
 
     <button onclick="generujKarte()">Generuj</button>
+    <p class="creator">Creator – szajz3er</p>
     <canvas id="canvas"></canvas>
+  
 
     <!-- Przycisk pobierania -->
     <button id="downloadButton" style="display:none" onclick="downloadImage()">Pobierz Kartę</button>
@@ -29,4 +38,3 @@
   
   <script src="js/app.js"></script>
 </body>
-</html>
