@@ -1,11 +1,11 @@
 function dopasujTekstRozciagany(ctx, text, xStart, y, maxWidth, maxFontSize, fontName) {
     let fontSize = maxFontSize;
-    ctx.font = ${fontSize}px ${fontName};
+    ctx.font = `${fontSize}px ${fontName}`;
     
     // Dopasuj wielkość fontu do dostępnej szerokości
     while (ctx.measureText(text).width > maxWidth && fontSize > 8) {
       fontSize -= 1;
-      ctx.font = ${fontSize}px ${fontName};
+      ctx.font = `${fontSize}px ${fontName}`;
     }
   
     // Wycentruj tekst w podanej szerokości
