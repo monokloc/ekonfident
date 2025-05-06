@@ -1,17 +1,27 @@
+// 🔐 PANEL LOGOWANIA
+function sprawdzLogowanie() {
+  const login = document.getElementById("login").value;
+  const haslo = document.getElementById("haslo").value;
+
+  if (login === "szajzer" && haslo === "1231") {
+    document.getElementById("loginPanel").style.display = "none";
+    document.querySelector(".container").style.display = "block";
+  } else {
+    document.getElementById("blad").innerText = "Nieprawidłowy login lub hasło!";
+  }
+}
+
+// 🔧 FUNKCJE GENERUJĄCE KARTĘ
+
 function dopasujTekstRozciagany(ctx, text, xStart, y, maxWidth, maxFontSize, fontName) {
     let fontSize = maxFontSize;
     ctx.font = `${fontSize}px ${fontName}`;
-    
-    // Dopasuj wielkość fontu do dostępnej szerokości
     while (ctx.measureText(text).width > maxWidth && fontSize > 8) {
       fontSize -= 1;
       ctx.font = `${fontSize}px ${fontName}`;
     }
-  
-    // Wycentruj tekst w podanej szerokości
     const textWidth = ctx.measureText(text).width;
     const x = xStart + (maxWidth - textWidth) / 2;
-  
     ctx.fillText(text, x, y);
 }
 
@@ -20,32 +30,26 @@ function generujKarte() {
     const ksywka = document.getElementById('ksywka').value;
     const input = document.getElementById('zdjecie');
     const file = input.files[0];
-  
+
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-  
-    // Ustawienia canvas
+
     canvas.width = 600;
     canvas.height = 750;
-  
-    // Ukrywamy canvas przed wygenerowaniem obrazu
     canvas.style.display = 'none';
-  
+
     const szablon = new Image();
     szablon.src = 'img/szablon.png';
-  
+
     szablon.onload = () => {
       ctx.drawImage(szablon, 0, 0, canvas.width, canvas.height);
-  
-      // Neonowy styl
       ctx.fillStyle = "000000";
       ctx.shadowColor = "000000";
       ctx.shadowBlur = 8;
-  
-      // Teksty dopasowane symetrycznie w 500px przestrzeni od x=135
+
       dopasujTekstRozciagany(ctx, imie, 5, 464, 278, 17, "Orbitron");
       dopasujTekstRozciagany(ctx, ksywka, 5, 553, 278, 17, "Orbitron");
-  
+
       if (file) {
         const reader = new FileReader();
         reader.onload = function(event) {
@@ -56,7 +60,7 @@ function generujKarte() {
             const width = 230;
             const height = 280;
             const radius = 30;
-  
+
             ctx.save();
             ctx.beginPath();
             ctx.moveTo(x + radius, y);
@@ -70,7 +74,7 @@ function generujKarte() {
             ctx.quadraticCurveTo(x, y, x + radius, y);
             ctx.closePath();
             ctx.clip();
-  
+
             ctx.drawImage(img, x, y, width, height);
             ctx.restore();
           };
@@ -78,22 +82,17 @@ function generujKarte() {
         };
         reader.readAsDataURL(file);
       }
-  
-      // Po wygenerowaniu obrazu, pokaż canvas
+
       canvas.style.display = 'block';
-  
-      // Pokaż przycisk pobierania po wygenerowaniu obrazu
       document.getElementById('downloadButton').style.display = 'block';
     };
 }
 
 function downloadImage() {
   const canvas = document.getElementById('canvas');
-  const imageUrl = canvas.toDataURL("image/png"); // Pobieranie obrazu z canvas w formacie PNG
-
-  // Tworzenie linku do pobrania
+  const imageUrl = canvas.toDataURL("image/png");
   const link = document.createElement('a');
   link.href = imageUrl;
-  link.download = 'karta_konfidenta.png'; // Nazwa pliku do pobrania
-  link.click(); // Symulowanie kliknięcia, aby pobrać obraz
+  link.download = 'karta_konfidenta.png';
+  link.click();
 }
