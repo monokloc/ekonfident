@@ -97,3 +97,16 @@ function downloadImage() {
   link.download = 'karta_konfidenta.png'; // Nazwa pliku do pobrania
   link.click(); // Symulowanie kliknięcia, aby pobrać obraz
 }
+
+// 🔐 PANEL LOGOWANIA
+function sprawdzLogowanie() {
+  const login = document.getElementById("login").value;
+  const haslo = document.getElementById("haslo").value;
+
+  if (login === "szajzer" && haslo === "1231") {
+    document.getElementById("loginPanel").style.display = "none";
+    document.querySelector(".container").style.display = "block";
+  } else {
+    document.getElementById("blad").innerText = "Nieprawidłowy login lub hasło!";
+  }
+}
