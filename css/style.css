@@ -117,23 +117,3 @@ canvas {
 #downloadButton:hover {
   transform: scale(1.05); /* Efekt powiększenia po najechaniu */
 }
-
-#backgroundVideo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  min-width: 100vw;
-  min-height: 100vh;
-  object-fit: cover;
-  z-index: -1; /* Wideo w tle */
-  opacity: 0.3; /* Możesz dostosować przezroczystość */
-}
-
-.creator {
-  font-size: 0.75em;
-  color: #8888aa;
-  margin-top: 15px;
-  text-align: center;
-  opacity: 0.6;
-  font-style: italic;
-}
