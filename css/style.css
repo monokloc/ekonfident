@@ -1,8 +1,8 @@
 body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
-  background: linear-gradient(135deg, #0f0f1b, #1a1a2e);
-  color: #00ffea;
+  background: none;
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,16 +14,16 @@ body {
   max-width: 400px;
   text-align: center;
   padding: 20px;
-  border: 2px solid #ff00cc;
+  border: 2px solid #ffffff;
   border-radius: 12px;
-  background-color: #1f1f2f;
-  box-shadow: 0 0 25px #ff00cc;
+  background-color: #474747;
+  box-shadow: 0 0 25px #ffffff;
 }
 
 h1 {
   font-size: 1.5em;
   margin-bottom: 20px;
-  text-shadow: 0 0 10px #00ffe5;
+  text-shadow: 0 0 10px #000000;
 }
 
 input, button {
@@ -36,17 +36,17 @@ input, button {
 }
 
 input {
-  background-color: #2a2a3d;
-  color: #00ffe5;
-  border: 1px solid #00ffe5;
+  background-color: #555555;
+  color: #000000;
+  border: 1px solid #ffffff;
 }
 
 button {
-  background-color: #ff00cc;
+  background-color: #000000;
   color: white;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 0 10px #ff00f2;
+  box-shadow: 0 0 10px rgb(255, 255, 255);
   transition: transform 0.2s;
 }
 
@@ -58,8 +58,8 @@ canvas {
   margin-top: 20px;
   width: 100%;
   height: auto;
-  border: 1px solid #00ffe5;
-  box-shadow: 0 0 10px #00ffe5;
+  border: 1px solid #ffffff;
+  box-shadow: 0 0 10px #000000;
   display: none; /* Ukrywamy canvas na początku */
 }
 
@@ -76,13 +76,13 @@ canvas {
 
 #fileInputLabel {
   display: inline-block;
-  background-color: #00ffe5;
-  color: #1f1f2f;
+  background-color: #000000;
+  color: #ffffff;
   padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-  box-shadow: 0 0 10px #00ffe5;
+  box-shadow: 0 0 10px #000000;
   transition: transform 0.2s;
 }
 
@@ -96,24 +96,43 @@ canvas {
 
 #fileInputContainer input[type="file"]:valid + #fileInputLabel {
   background-color: #00ffe5;
+  box-shadow: 0 0 10px #ffffff;
 }
 
-/* Styl dla przycisku pobierania */
-#downloadButton {
-  display: block;
-  width: 200px; /* Możesz dostosować szerokość */
-  padding: 8px 16px; /* Zmniejszenie paddingu */
-  font-size: 14px; /* Zmniejszenie rozmiaru czcionki */
-  background-color: #ff00cc;
+
+
+#backgroundVideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  z-index: -1;
+  object-fit: cover;
+  filter: blur(8px); /* <-- Rozmycie */
+  transform: scale(1.05); /* lekko powiększ, żeby blur nie odsłaniał krawędzi */
+}
+
+
+#generateMoreButton {
+  background-color: #000000;
   color: white;
-  border: none;
-  border-radius: 6px;
-  margin: 20px auto; /* Wyśrodkowanie przycisku */
+  font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 0 10px #ff00f2;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 20px;
+  box-shadow: 0 0 10px #ffffff;
   transition: transform 0.2s;
 }
 
-#downloadButton:hover {
-  transform: scale(1.05); /* Efekt powiększenia po najechaniu */
+#generateMoreButton:hover {
+  transform: scale(1.05);
 }
+
+#generateMoreButton:active {
+  background-color: #646464;
+}
+
+
