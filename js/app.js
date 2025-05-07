@@ -1,98 +1,96 @@
-// 🔐 PANEL LOGOWANIA
-function sprawdzLogowanie() {
-  const login = document.getElementById("login").value;
-  const haslo = document.getElementById("haslo").value;
-
-  if (login === "szajzer" && haslo === "1231") {
-    document.getElementById("loginPanel").style.display = "none";
-    document.querySelector(".container").style.display = "block";
-  } else {
-    document.getElementById("blad").innerText = "Nieprawidłowy login lub hasło!";
-  }
-}
-
-// 🔧 FUNKCJE GENERUJĄCE KARTĘ
-
 function dopasujTekstRozciagany(ctx, text, xStart, y, maxWidth, maxFontSize, fontName) {
-    let fontSize = maxFontSize;
+  let fontSize = maxFontSize;
+  ctx.font = `${fontSize}px ${fontName}`;
+  
+  // Dopasuj wielkość fontu do dostępnej szerokości
+  while (ctx.measureText(text).width > maxWidth && fontSize > 8) {
+    fontSize -= 1;
     ctx.font = `${fontSize}px ${fontName}`;
-    while (ctx.measureText(text).width > maxWidth && fontSize > 8) {
-      fontSize -= 1;
-      ctx.font = `${fontSize}px ${fontName}`;
-    }
-    const textWidth = ctx.measureText(text).width;
-    const x = xStart + (maxWidth - textWidth) / 2;
-    ctx.fillText(text, x, y);
+  }
+
+  // Wycentruj tekst w podanej szerokości
+  const textWidth = ctx.measureText(text).width;
+  const x = xStart + (maxWidth - textWidth) / 2;
+
+  ctx.fillText(text, x, y);
 }
 
 function generujKarte() {
-    const imie = document.getElementById('imie').value;
-    const ksywka = document.getElementById('ksywka').value;
-    const input = document.getElementById('zdjecie');
-    const file = input.files[0];
+  const imie = document.getElementById('imie').value;
+  const ksywka = document.getElementById('ksywka').value;
+  const input = document.getElementById('zdjecie');
+  const file = input.files[0];
 
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
 
-    canvas.width = 600;
-    canvas.height = 750;
-    canvas.style.display = 'none';
+  // Ustawienia canvas
+  canvas.width = 600;
+  canvas.height = 750;
 
-    const szablon = new Image();
-    szablon.src = 'img/szablon.png';
+  // Ukrywamy canvas przed wygenerowaniem obrazu
+  canvas.style.display = 'none';
 
-    szablon.onload = () => {
-      ctx.drawImage(szablon, 0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "000000";
-      ctx.shadowColor = "000000";
-      ctx.shadowBlur = 8;
+  const szablon = new Image();
+  szablon.src = 'img/szablon.png';
 
-      dopasujTekstRozciagany(ctx, imie, 5, 464, 278, 17, "Orbitron");
-      dopasujTekstRozciagany(ctx, ksywka, 5, 553, 278, 17, "Orbitron");
+  szablon.onload = () => {
+    ctx.drawImage(szablon, 0, 0, canvas.width, canvas.height);
 
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          const img = new Image();
-          img.onload = () => {
-            const x = 48;
-            const y = 100;
-            const width = 230;
-            const height = 280;
-            const radius = 30;
+    // Neonowy styl
+    ctx.fillStyle = "000000";
+    ctx.shadowColor = "000000";
+    ctx.shadowBlur = 8;
 
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(x + radius, y);
-            ctx.lineTo(x + width - radius, y);
-            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-            ctx.lineTo(x + width, y + height - radius);
-            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-            ctx.lineTo(x + radius, y + height);
-            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-            ctx.lineTo(x, y + radius);
-            ctx.quadraticCurveTo(x, y, x + radius, y);
-            ctx.closePath();
-            ctx.clip();
+    // Teksty dopasowane symetrycznie w 500px przestrzeni od x=135
+    dopasujTekstRozciagany(ctx, imie, 5, 464, 278, 17, "Orbitron");
+    dopasujTekstRozciagany(ctx, ksywka, 5, 553, 278, 17, "Orbitron");
 
-            ctx.drawImage(img, x, y, width, height);
-            ctx.restore();
-          };
-          img.src = event.target.result;
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = () => {
+          const x = 48;
+          const y = 100;
+          const width = 230;
+          const height = 280;
+          const radius = 30;
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(x + radius, y);
+          ctx.lineTo(x + width - radius, y);
+          ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+          ctx.lineTo(x + width, y + height - radius);
+          ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+          ctx.lineTo(x + radius, y + height);
+          ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+          ctx.lineTo(x, y + radius);
+          ctx.quadraticCurveTo(x, y, x + radius, y);
+          ctx.closePath();
+          ctx.clip();
+
+          ctx.drawImage(img, x, y, width, height);
+          ctx.restore();
         };
-        reader.readAsDataURL(file);
-      }
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
 
-      canvas.style.display = 'block';
-      document.getElementById('downloadButton').style.display = 'block';
-    };
+    // Po wygenerowaniu obrazu, pokaż canvas i przycisk powrotu
+    canvas.style.display = 'block';
+    document.getElementById('generatedCardContainer').style.display = 'block';
+    document.getElementById('inputForm').style.display = 'none';
+  };
 }
 
-function downloadImage() {
-  const canvas = document.getElementById('canvas');
-  const imageUrl = canvas.toDataURL("image/png");
-  const link = document.createElement('a');
-  link.href = imageUrl;
-  link.download = 'karta_konfidenta.png';
-  link.click();
+function resetForm() {
+// Ukryj wygenerowaną kartę i pokaż formularz do generowania nowej
+document.getElementById('generatedCardContainer').style.display = 'none';
+document.getElementById('inputForm').style.display = 'block';
+document.getElementById('imie').value = '';
+document.getElementById('ksywka').value = '';
+document.getElementById('zdjecie').value = '';
 }
