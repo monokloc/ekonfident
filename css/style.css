@@ -135,4 +135,19 @@ canvas {
   background-color: #646464;
 }
 
+/* Styl dla ikon social media */
+.social-links {
+  margin-top: 10px;
+}
+
+.social-icon {
+  font-size: 24px;
+  margin: 0 15px;
+  color: #ffffff;
+  transition: color 0.3s;
+}
+
+.social-icon:hover {
+  color: #00ffe5; /* Zmiana koloru po najechaniu */
+}
 
